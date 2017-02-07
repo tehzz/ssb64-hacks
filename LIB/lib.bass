@@ -1,0 +1,16 @@
+//bass-n64
+//=======Standard Includes=================================
+//---bass macros-------------------------------------------
+// global scope
+include "macros.bass"
+//---N64 Registers and Constants Definitions---------------
+// global scope
+include "N64defs.inc"
+//---Callable, On-ROM SSB64 Routines-----------------------
+// scoped to "fn"
+// fn -> {  libultra        // Libultra Routines
+//          ssb             // Universal SSB64 Routines
+//          css             // Character Select Screen
+//          results         // VS Battle Result Screen
+// }
+include "ssb/routines.inc"

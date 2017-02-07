@@ -1,3 +1,9 @@
+# Rom Directory
+/ROM
+
+# Generated or Initial ROMs
+*.z64
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
