@@ -52,7 +52,7 @@ scope DMA {
     // --- Print out info on DMA stuff
     // Verbose Print info [-d v on cli]
     if {defined v} {
-      print "CSS DMA Parameters:\n"
+      print "Boot DMA Parameters:\n"
       printDMAInfo(ROM, RAM, SIZE)
     }
   }
