@@ -1,0 +1,14 @@
+80400000 DMA.boot.data.hitboxFlags
+800f2c00 DMA.boot.hook.beginning
+800f2c14 DMA.boot.hook.render_model
+800f2fd8 DMA.boot.hook.render_collision
+800f3358 DMA.boot.hook.render_hitbox
+800f3650 DMA.boot.hook.end
+80400004 DMA.boot.render
+8040000c DMA.boot.render.model
+80400024 DMA.boot.render.collision
+80400044 DMA.boot.render.hurtbox
+80400064 DMA.boot.render.hitbox
+80400084 DMA.boot.render.epilogue
+80400090 DMA.boot.render.only_model
+80032604 loader.bootDMA
