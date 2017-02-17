@@ -1,7 +1,7 @@
 //bass-n64
 
 //=== Customizable Hitbox Display =========================
-// Allow for any of model, hurtbox, hitbox, and colision-box
+// Allow for any of model, hurtbox, hitbox, and collision-box
 // to be displayed at any time
 //=========================================================
 
@@ -154,4 +154,66 @@ scope render: {
 // at 8016753C is a series of checks for projectiles. Set it up to
 // check for model and hitbox based on these enums
 
-print "included hitbox-display.asm"
+pushvar pc
+origin 0xE1F60
+base   0x80167520
+// might just want to replace the whole routine... for flag stack saving?
+scope projectile_hb {
+  nonLeafStackSize(2)
+  constant projecModelFn1(0x80167454)
+  constant projecModelFn2(0x801674B8)
+  constant collisionFn(0x801671F0)
+  constant hitboxFn(0x80166E80)
+
+  prologue:
+          subiu sp, sp, {StackSize}
+          sw    ra, 0x0014(sp)
+          sw    s0, 0x0018(sp)
+          sw    s1, 0x001C(sp)
+          sw    a1, {StackSize} + 4 (sp)
+  // set up v0 and s0
+          lw    v0, 0x0084(a0)
+          or    s0, r0, a0
+  // grab hitbox flag state
+      lbuAddr(s1, data.hitboxFlags, 0)
+  model_check:
+          lli   at, def.hbFlags.hideModel
+          and   at, s1, at
+          bnez  at, hitbox_check
+          nop
+  draw_projectile_model:
+  // code from game...
+          jal   projecModelFn1
+          nop
+          lw    t9, {StackSize} + 4 (sp)
+          jalr  ra, t9
+          or    a0, r0, s0
+          jal   projecModelFn2
+          nop
+  hitbox_check:
+          lli   at, def.hbFlags.hitbox
+          and   at, s1, at
+          beqz  at, epilogue
+          nop
+  draw_projectile_hitbox:
+          jal   hitboxFn
+          or    a0, r0, s0
+  epilogue:
+          lw    ra, 0x0014(sp)
+          lw    s0, 0x0018(sp)
+          addiu sp, sp, {StackSize}
+          jr    ra
+          lw    s1, 0x001C(sp)
+
+  // Nop rest of orignal routine
+  if ( pc() >= 0x801675CC) {
+    error "Replacement Proejectile Hitbox Routine is too Big!!"
+  }
+  while (pc() < 0x801675CC) {
+    nop
+  }
+
+}
+pullvar pc
+
+print "included hitbox-display.asm \n"
