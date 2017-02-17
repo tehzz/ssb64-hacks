@@ -4,6 +4,9 @@
 # Generated or Initial ROMs
 *.z64
 
+# Symbol Debug Files
+hitboxes/*.txt
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
