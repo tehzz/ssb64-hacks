@@ -11,4 +11,10 @@
 80400064 DMA.boot.render.hitbox
 80400084 DMA.boot.render.epilogue
 80400090 DMA.boot.render.only_model
+80167520 DMA.boot.projectile_hb.prologue
+80167544 DMA.boot.projectile_hb.model_check
+80167554 DMA.boot.projectile_hb.draw_projectile_model
+80167570 DMA.boot.projectile_hb.hitbox_check
+80167580 DMA.boot.projectile_hb.draw_projectile_hitbox
+80167588 DMA.boot.projectile_hb.epilogue
 80032604 loader.bootDMA

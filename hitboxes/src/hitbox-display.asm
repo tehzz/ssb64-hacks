@@ -206,13 +206,7 @@ scope projectile_hb {
           lw    s1, 0x001C(sp)
 
   // Nop rest of orignal routine
-  if ( pc() >= 0x801675CC) {
-    error "Replacement Proejectile Hitbox Routine is too Big!!"
-  }
-  while (pc() < 0x801675CC) {
-    nop
-  }
-
+  nopUntilPC(0x801675CC, "Replacment Projectile Rendering Routine")
 }
 pullvar pc
 
