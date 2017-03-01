@@ -44,6 +44,7 @@ scope DMA {
     //---Code to be DMA'd:
     align(4)
     include "src/hitbox-display.asm"
+    include "src/dpad-handle.asm"
     //---End Code to Be DMA'd
 
     // update SIZE variable
@@ -62,7 +63,7 @@ scope loader {
   if {defined v} {
     print "\nGenerating DMA hack loader code: \n\n"
   }
-  // from bit
+  // shamelessly stolen from bit
   nonLeafStackSize(0)
   origin 0x1234
   base   0x80000634
