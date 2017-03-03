@@ -44,6 +44,7 @@ scope DMA {
     //---Code to be DMA'd:
     align(4)
     include "src/hitbox-display.asm"
+    include "src/own-projectiles-hb.asm"    // full replacement for on ROM routine
     include "src/dpad-handle.asm"
     //---End Code to Be DMA'd
 
