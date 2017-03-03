@@ -104,8 +104,7 @@ scope render: {
           //nop
   model:
   // if not just the model, check for each component
-          lli   at, def.hbFlags.hideModel
-          and   at, t0, at            // check if model should be hidden
+          andi  at, t0, def.hbFlags.hideModel   // check if model should be hidden
           bnez  at, collision
           nop
           j     hook.render_model
@@ -113,8 +112,7 @@ scope render: {
 
   collision:
       lbuAddr(t0, data.hitboxFlags, 0)
-          lli   at, def.hbFlags.collision
-          and   at, t0, at
+          andi  at, t0, def.hbFlags.collision
           beqz  at, hurtbox
           nop
           j     hook.render_collision
@@ -123,8 +121,7 @@ scope render: {
   hurtbox:
   // The hurtbox code is already routines, could maybe just call them here!
       lbuAddr(t0, data.hitboxFlags, 0)
-          lli   at, def.hbFlags.hurtbox
-          and   at, t0, at
+          andi  at, t0, def.hbFlags.hurtbox
           beqz  at, hitbox
           nop
   // Call renderHurtbox ourselves
@@ -135,8 +132,7 @@ scope render: {
   hitbox:
   // have to isolate why it is only drawn sometimes.... (eg outside of battle)
       lbuAddr(t0, data.hitboxFlags, 0)
-          lli   at, def.hbFlags.hitbox
-          and   at, t0, at
+          andi  at, t0, def.hbFlags.hitbox
           beqz  at, epilogue
           nop
           j     hook.render_hitbox
@@ -146,9 +142,6 @@ scope render: {
           lw    v0, 0x0020(s8)        // original instruc at 800F3648
           j     hook.end
           addiu at, r0, 0x0001        // original instruc at 800F364C
-
-
-  only_model:
 }
 
 // at 8016753C is a series of checks for projectiles. Set it up to
@@ -177,8 +170,7 @@ scope projectile_hb {
   // grab hitbox flag state
       lbuAddr(s1, data.hitboxFlags, 0)
   model_check:
-          lli   at, def.hbFlags.hideModel
-          and   at, s1, at
+          andi  at, s1, def.hbFlags.hideModel
           bnez  at, hitbox_check
           nop
   draw_projectile_model:
@@ -191,8 +183,7 @@ scope projectile_hb {
           jal   projecModelFn2
           nop
   hitbox_check:
-          lli   at, def.hbFlags.hitbox
-          and   at, s1, at
+          andi  at, s1, def.hbFlags.hitbox
           beqz  at, epilogue
           nop
   draw_projectile_hitbox:
@@ -206,7 +197,7 @@ scope projectile_hb {
           lw    s1, 0x001C(sp)
 
   // Nop rest of orignal routine
-  nopUntilPC(0x801675CC, "Replacment Projectile Rendering Routine")
+  nopUntilPC(0x801675CC, "Replacement Projectile Rendering Routine")
 }
 pullvar pc
 
