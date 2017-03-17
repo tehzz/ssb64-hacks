@@ -1,0 +1,19 @@
+//bass-n64
+//--- assembler only defines ---------------------------------------------------
+// Define a unsigned 8 bit flag "def.hbFlags" to enumerate the possible display
+// states for various models (characters, items, etc.)
+//
+// Define "def.renderHurtbox" for on-ROM, built-in routine that seems to render
+// hurtboxes!
+//------------------------------------------------------------------------------
+scope def {
+  scope hbFlags {
+     // a "hide model" flag, so 0x0 == show only the model
+    constant hideModel(0b00000001)    //0x01
+    constant   hurtbox(0b00000010)    //0x02
+    constant    hitbox(0b00000100)    //0x04
+    constant collision(0b00001000)    //0x08
+  }
+
+  constant renderHurtbox(0x800F2584)
+}

@@ -41,12 +41,20 @@ scope DMA {
     constant RAM(pc())
     variable SIZE(0)
 
-    //---Code to be DMA'd:
     align(4)
-    include "src/hitbox-display.asm"
+    //--Defs--------------------------------------
+    include "src/hitbox-defs.bass"
+    // u8 def.hbFlags
+    // u32 *func def.renderHurtbox
+
+    //--.data / static variable-------------------
+    include "src/hitbox-global-vars.asm"
+    // u32 *def.hbFlags -> data.hitboxFlags
+
+    //--.text / Code------------------------------
+    include "src/hitbox-display.asm"        // for character model hit-/hurt-boxes
     include "src/own-projectiles-hb.asm"    // full replacement for on ROM routine
     include "src/dpad-handle.asm"
-    //---End Code to Be DMA'd
 
     // update SIZE variable
     variable SIZE( origin()-ROM )
@@ -60,10 +68,6 @@ scope DMA {
 }
 
 scope loader {
-  // Verbose Print info [-d v on cli]
-  if {defined v} {
-    print "\nGenerating DMA hack loader code: \n\n"
-  }
   // shamelessly stolen from bit
   nonLeafStackSize(0)
   origin 0x1234

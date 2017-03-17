@@ -1,33 +1,8 @@
 //bass-n64
-
 //=== Customizable Hitbox Display =========================
 // Allow for any of model, hurtbox, hitbox, and collision-box
 // to be displayed at any time
 //=========================================================
-
-//--- assembler only defines --------------------
-scope def {
-  scope hbFlags {
-     // a "hide model" flag, so 0x0 == show only the model
-    constant hideModel(0b00000001)    //0x01
-    constant   hurtbox(0b00000010)    //0x02
-    constant    hitbox(0b00000100)    //0x04
-    constant collision(0b00001000)    //0x08
-  }
-
-  constant renderHurtbox(0x800F2584)
-}
-
-//---.data---------------------------------------
-align(8)
-scope data {
-  // u8 hbFlags; set to 0x00 to initially show the normal model
-  hitboxFlags:
-  db  0x00
-
-  // pad to take up a word
-  db 0, 0, 0
-}
 
 //---.text---------------------------------------
 //--Hooks into model rendering routine
@@ -93,10 +68,12 @@ scope hook {
   end:
 }
 pullvar pc
+//--End Hook--------------------------------------------------------------------
 
 align(4)
 // Want to render model -> collision -> hurtbox -> hitbox(es), since that's
-// the order the game renders. This is the best chance to keep a semi-okay register setup...
+// the order the game renders.
+// This is the best chance to keep a semi-okay register setup...
 scope render: {
   // Branch between an explicit model only path and an individual components path
       lbuAddr(t0, data.hitboxFlags, 0)

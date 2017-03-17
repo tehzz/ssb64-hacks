@@ -2,9 +2,14 @@
 //=== Customizable Hitbox Display =========================
 // In battle D-Pad handler to switch model/hurtbox/hitbox
 // memory address
+// UP    -> Toggle Model
+// Right -> Toggle Hurtbox
+// Down  -> Toggle Hitbox
+// Left  -> Toggle Collision
 //=========================================================
 
 //---Hook--------------------------------------------------
+// This is within the button handler for a battle
 // Original Code
 // lb     t4, 0x0008(a0)
 // addiu  v0, a2, 0x01BC    #Make Pointer to Buttons
