@@ -8,7 +8,7 @@
 align(8)
 scope data {
   // *hbFlags data.hitboxFlags
-  // set to initially show only the normal model (which should be 0x0)
+  // set to initially show only the normal model (which should be 0x00)
   hitboxFlags:
   db  ( 0x00 & (~def.hbFlags.hideModel | ~def.hbFlags.hitbox | ~def.hbFlags.hurtbox | ~def.hbFlags.collision) );
 
