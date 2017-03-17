@@ -14,18 +14,7 @@ origin 0x042B3B
 base 0x8000A3DE8
 dl 0x7F0C90
 
-//===DMA'd Routines========================================
-//- These routines need to be moved into active RAM.
-// Structure looks like:
-// DMA {
-//    ${screen} {
-//        ROM
-//        RAM
-//        SIZE
-//    }
-// }
-//-----------------------------------------------
-
+//===DMA'd Data and Routines====================================================
 
 // set initial ROM base for free space
 origin 0x00F5F500
@@ -47,14 +36,14 @@ scope DMA {
     // u8 def.hbFlags
     // u32 *func def.renderHurtbox
 
-    //--.data / static variable-------------------
+    //--.data / static variables------------------
     include "src/hitbox-global-vars.asm"
     // u32 *def.hbFlags -> data.hitboxFlags
 
     //--.text / Code------------------------------
     include "src/hitbox-display.asm"        // for character model hit-/hurt-boxes
     include "src/own-projectiles-hb.asm"    // full replacement for on ROM routine
-    include "src/dpad-handle.asm"
+    include "src/dpad-handle.asm"           // toggle models in game with d-pad
 
     // update SIZE variable
     variable SIZE( origin()-ROM )
@@ -72,11 +61,14 @@ scope loader {
   nonLeafStackSize(0)
   origin 0x1234
   base   0x80000634
+  {
           jal    bootDMA
+  }
 
   origin 0x33204
   base   0x80032604
-  bootDMA:
+
+  bootDMA: {
           subiu sp, sp, {StackSize}
           sw    ra, 0x0014(sp)
           jal   fn.ssb.managedDMA   // target of hooked jal above
@@ -91,6 +83,7 @@ scope loader {
           lw    ra, 0x0014(sp)
           jr    ra
           addiu sp, sp, {StackSize}
+  }
 }
 
 // Verbose Print info [-d v on cli]

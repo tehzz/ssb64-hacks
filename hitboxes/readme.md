@@ -12,6 +12,9 @@ Hack to allow for hitboxes, hurtboxes, normal models, and collision to be select
 * D-PAD Down: toggle *hitboxes* on/off
 * D-PAD Left: toggle *collision diamond* on/off
 
+### Build Instructions
+Get rom; place rom; run bass `put bass command here`
+
 ### Things To Do
 1. Fix code that handles "non-owned" (?) projectiles like Link's bombs
 2. Test on console lol
