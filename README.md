@@ -10,5 +10,6 @@ Constant in-RAM dma loading code that allows for custom DMAing of ROM to RAM dat
 * ### /bootstrap/
 Copy-and-paste start for a new hack. Includes above
 
-## Builds
-* rip none yet.
+## Actual, Useful Code
+* ### /hitboxes/
+A "refactoring" of the rouintes that draw hurtboxes, hitboxes, and regular models to allow for those three to be seen in any combination
