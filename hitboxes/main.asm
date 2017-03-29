@@ -49,7 +49,7 @@ scope DMA {
 
     // Verbose Print info [-d v on cli]
     if {defined v} {
-      print "Boot DMA Parameters:\n"
+      print "\nBoot DMA Parameters:\n"
       printDMAInfo(ROM, RAM, SIZE)
     }
   }
@@ -87,5 +87,5 @@ scope loader {
 
 // Verbose Print info [-d v on cli]
 if {defined v} {
-  print "\nHack Compiled!! \n\n"
+  print "\nHitbox Hack Compiled!! \n\n"
 }

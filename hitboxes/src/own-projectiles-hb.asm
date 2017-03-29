@@ -64,4 +64,6 @@ scope projectile_hb {
 }
 pullvar pc
 
-print "included own-projectiles-hb.asm \n"
+if {defined v} {        // Verbose Print info [-d v on cli]
+  print "included own-projectiles-hb.asm \n"
+}

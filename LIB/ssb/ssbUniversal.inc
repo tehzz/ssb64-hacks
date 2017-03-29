@@ -58,4 +58,6 @@ constant loadCharacterModel(0x800D786C)
 constant getRandomInt(0x80018994)
 
 //--------------------------------------
-print "Univseral SSB Routines included!\n"
+if {defined v} {        // Verbose Print info [-d v on cli]
+  print "Univseral SSB Routines included!\n"
+}

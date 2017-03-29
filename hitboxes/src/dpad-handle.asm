@@ -73,5 +73,6 @@ scope dpad_handle: {
           lb    t4, 0x0008(a0)        // original line 1
 }
 
-
-print "included dpad-handle.asm \n"
+if {defined v} {        // Verbose Print info [-d v on cli]
+  print "included dpad-handle.asm \n"
+}

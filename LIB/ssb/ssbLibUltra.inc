@@ -66,4 +66,6 @@ constant osViModeMpalLan1(0x8003d500)
 
 
 
-print "LibUltra defs included!\n"
+if {defined v} {        // Verbose Print info [-d v on cli]
+  print "LibUltra defs included!\n"
+}

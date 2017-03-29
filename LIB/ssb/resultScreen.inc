@@ -36,4 +36,6 @@ constant getWinningCharacter(0x80134364)
 constant getCharacterFromPlayer(0x80133148)
 
 //--------------------------------------
-print "Results Screen Routines included!\n"
+if {defined v} {        // Verbose Print info [-d v on cli]
+  print "Results Screen Routines included!\n"
+}

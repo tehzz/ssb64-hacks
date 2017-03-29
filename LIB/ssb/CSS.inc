@@ -86,4 +86,6 @@ constant colorInUse(0x80134674)
 constant pickupToken(0x8013760C)
 
 //--------------------------------------
-print "CSS Routines included!\n"
+if {defined v} {        // Verbose Print info [-d v on cli]
+  print "CSS Routines included!\n"
+}

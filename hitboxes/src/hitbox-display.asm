@@ -124,5 +124,6 @@ scope render: {
           j     hook.end
           addiu at, r0, 0x0001        // original instruc at 800F364C
 }
-
-print "included hitbox-display.asm \n"
+if {defined v} {        // Verbose Print info [-d v on cli]
+  print "included hitbox-display.asm \n"
+}
