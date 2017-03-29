@@ -7,15 +7,16 @@ Hack to allow for hitboxes, hurtboxes, normal models, and collision to be select
 **Collision display probably only works with normal model on, but this is not enforced in the code yet...**
 
 ### "Controls"
-During a battle: 
+During a battle:
 * D-PAD UP: toggle *normal model* on/off
 * D-PAD Right: toggle *hurtboxes* on/off
 * D-PAD Down: toggle *hitboxes* on/off
 * D-PAD Left: toggle *collision diamond* on/off
 
 ### Build Instructions
-1. Place a big-endian NTSC-U `Super Smash Bros. (U) [!].z64` ROM in `../ROM/`, or modify line 10 of `main.asm` to point to a valid SSB64 ROM
-2. Run `make`
+1. Clone repository
+2. Place a big-endian NTSC-U `Super Smash Bros. (U) [!].z64` ROM in `../ROM/`, or modify line 10 of `main.asm` to point to a valid SSB64 ROM
+3. Run `make`
 
 ### Things To Do
 1. Modify code that handles "non-owned" (?) projectiles like Link's bombs
