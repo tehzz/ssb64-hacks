@@ -10,5 +10,5 @@ build:
 verbose:
 	bass $(BFLAGS) -d v -o $(OUTPUT) $(SOURCE)
 
-sym:
+symbols:
 	bass $(BFLAGS) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
