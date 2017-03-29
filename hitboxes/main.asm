@@ -34,7 +34,6 @@ scope DMA {
     //--Defs--------------------------------------
     include "src/hitbox-defs.bass"
     // u8 def.hbFlags
-    // u32 *func def.renderHurtbox
 
     //--.data / static variables------------------
     include "src/hitbox-global-vars.asm"

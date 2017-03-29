@@ -75,6 +75,10 @@ align(4)
 // the order the game renders.
 // This is the best chance to keep a semi-okay register setup...
 scope render: {
+  // on ROM routine that renders a character's hurtbox
+  constant renderHurtbox(0x800F2584)
+
+
   // Branch between an explicit model only path and an individual components path
       lbuAddr(t0, data.hitboxFlags, 0)
           //beqzl t0, only_model
@@ -103,7 +107,7 @@ scope render: {
           nop
   // Call renderHurtbox ourselves
   // Maybe eventually put in the 0x3EA check to "unmoor" hurtbox?
-          jal   def.renderHurtbox
+          jal   renderHurtbox
           lw    a0, 0x0074(s6)
 
   hitbox:
