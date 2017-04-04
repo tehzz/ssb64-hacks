@@ -40,9 +40,10 @@ scope DMA {
     // u32 *def.hbFlags -> data.hitboxFlags
 
     //--.text / Code------------------------------
-    include "src/hitbox-display.asm"        // for character model hit-/hurt-boxes
-    include "src/own-projectiles-hb.asm"    // full replacement for on ROM routine
-    include "src/dpad-handle.asm"           // toggle models in game with d-pad
+    include "src/hitbox-display.asm"            // for character model hit-/hurt-boxes
+    include "src/own-projectiles-hb.asm"        // full replacement for on ROM routine
+    include "src/non-owned-projectiles-hb.asm"  // full replacement for on ROM routine
+    include "src/dpad-handle.asm"               // toggle models in game with d-pad
 
     // update SIZE variable
     variable SIZE( origin()-ROM )
