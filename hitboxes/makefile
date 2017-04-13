@@ -1,18 +1,22 @@
 OUTPUT=hbtest.z64
 SOURCE=main.asm
-BFLAGS=-create
+AS=bass
+ASFLAGS=-create
 verbose=-d v
+CRC=rn64crc
+CRCFLAGS=-u
 
 all: build
 
 build:
-	bass $(BFLAGS) -o $(OUTPUT) $(SOURCE)
+	$(AS) $(ASFLAGS) -o $(OUTPUT) $(SOURCE)
+	$(CRC) $(CRCFLAGS) $(OUTPUT)
 
 verbose:
-	bass $(BFLAGS) $(verbose) -o $(OUTPUT) $(SOURCE)
+	$(AS) $(ASFLAGS) $(verbose) -o $(OUTPUT) $(SOURCE)
 
 symbols:
-	bass $(BFLAGS) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
+	$(AS) $(ASFLAGS) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
 
 vsym:
-	bass $(BFLAGS) $(verbose) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
+	$(AS) $(ASFLAGS) $(verbose) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
