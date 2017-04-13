@@ -20,3 +20,7 @@ symbols:
 
 vsym:
 	$(AS) $(ASFLAGS) $(verbose) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
+
+.PHONY : clean
+clean:
+	-rm $(OUTPUT) $(subst .z64,-sym.txt,$(OUTPUT))
