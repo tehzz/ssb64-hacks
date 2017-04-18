@@ -1,8 +1,7 @@
 //bass-n64
-//=== "Non-Own" Projectiles Hitbox Display =====================================
-//   Render "not-self" or "non-own" projectiles as either the model, or the
-//  hitbox, or both--based on data.hitboxFlags flag
-//  This class includes things like Link's bombs
+//=== Link's Bomb Hitbox Display ===============================================
+//  The game seems to have a custom routine to rendering link's bomb to the
+// screen. Make this routine aware of the data.hitboxFlags flag state
 //==============================================================================
 
 // Replace the entire routine from 8017224C to 80172310
@@ -19,7 +18,7 @@ base    0x8017224C
 //---reg map--------------------------------------
 // s0 = hitbox flag state
 
-scope drawNonOwnedProjectile: {
+scope drawLinksBomb: {
   nonLeafStackSize(2)
   constant  checkIfNeeded(0x80171C10)
   constant  drawNormalModel(0x80172008)
@@ -35,13 +34,13 @@ scope drawNonOwnedProjectile: {
           sw    a1, {StackSize} + 0 (sp)    // input a0 register
           jal   checkIfNeeded
           sw    a0, 0x001C(sp)
-// check if there is anything to draw...?
-          lw    a0, 0x001C(sp)              // this isn't needed....
+  // if( !checkIfNeeded ) goto epilogue
+          lw    a0, 0x001C(sp)
           beqz  v0, epilogue
-          lw    a1, {StackSize} + 0 (sp)    // this really isn't either, since it can be loaded before jal
+          lw    a1, {StackSize} + 0 (sp)
 
   get_hitbox_flag_state:
-          lbuAddr(s0, data.hitboxFlags,0)
+        lbuAddr(s0, data.hitboxFlags,0)
   model_check:
           andi  at, s0, def.hbFlags.hideModel
           bnez  at, hitbox_checks
@@ -79,10 +78,10 @@ scope drawNonOwnedProjectile: {
           addiu sp, sp, {StackSize}
 
   // Nop rest of orignal routine
-  nopUntilPC(0x80172310, "Replacement drawNonOwnedProjectile Routine Overflow")
+  nopUntilPC(0x80172310, "Replacement drawLinkBomb Routine Overflow")
 }
 pullvar pc
 
 if {defined v} {        // Verbose Print info [-d v on cli]
-  print "included non-owned-projectiles-hb.asm \n"
+  print "included link-bomb-hb.asm \n"
 }
