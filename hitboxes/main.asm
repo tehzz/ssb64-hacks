@@ -19,6 +19,7 @@ dl 0x7F0C90
 // set initial ROM base for free space
 origin 0x00F5F500
 
+// code within this scope requires something to be DMA'd by the custom loader
 scope DMA {
   //---Code DMA'd into RAM on game boot----------
   scope boot {
@@ -41,8 +42,9 @@ scope DMA {
 
     //--.text / Code------------------------------
     include "src/hitbox-display.asm"            // for character model hit-/hurt-boxes
-    include "src/own-projectiles-hb.asm"        // full replacement for on ROM routine
-    include "src/non-owned-projectiles-hb.asm"  // full replacement for on ROM routine
+    include "src/own-projectiles-hb.asm"        // full replacement for on ROM routine (no DMA'd code)
+    include "src/link-bomb-hb.asm"              // full replacement for on ROM routine (no DMA'd code)
+    include "src/thrown-item-hb.asm"            // full replacement for on ROM routine (no DMA'd code)
     include "src/dpad-handle.asm"               // toggle models in game with d-pad
 
     // update SIZE variable
