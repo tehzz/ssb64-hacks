@@ -33,19 +33,22 @@ scope DMA {
 
     align(4)
     //--Defs--------------------------------------
-    include "src/hitbox-defs.bass"
+    include "src/def/hb-defs.bass"
     // u8 def.hbFlags
 
     //--.data / static variables------------------
-    include "src/hitbox-global-vars.asm"
+    include "src/data/hb-global-vars.asm"
     // u32 *def.hbFlags -> data.hitboxFlags
 
     //--.text / Code------------------------------
     include "src/hitbox-display.asm"            // for character model hit-/hurt-boxes
     include "src/own-projectiles-hb.asm"        // full replacement for on ROM routine (no DMA'd code)
-    include "src/link-bomb-hb.asm"              // full replacement for on ROM routine (no DMA'd code)
-    include "src/thrown-item-hb.asm"            // full replacement for on ROM routine (no DMA'd code)
     include "src/dpad-handle.asm"               // toggle models in game with d-pad
+
+    include "src/items/link-bomb-hb.asm"        // full replacement for on ROM routine (no DMA'd code)
+    include "src/items/thrown-item-hb.asm"      // full replacement for on ROM routine (no DMA'd code)
+    include "src/items/beamsword-hb.asm"        // full replacement for on ROM routine (no DMA'd code)
+    include "src/items/bob-omb-hb.asm"          // full replacement for on ROM routine (no DMA'd code)
 
     // update SIZE variable
     variable SIZE( origin()-ROM )

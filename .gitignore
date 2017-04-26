@@ -6,6 +6,7 @@
 
 # Symbol Debug Files
 hitboxes/*.txt
+*.nbm
 
 # Windows image file caches
 Thumbs.db

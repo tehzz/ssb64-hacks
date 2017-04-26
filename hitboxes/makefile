@@ -10,7 +10,7 @@ all: build
 
 build:
 	$(AS) $(ASFLAGS) -o $(OUTPUT) $(SOURCE)
-	$(CRC) $(CRCFLAGS) $(OUTPUT)
+	-$(CRC) $(CRCFLAGS) $(OUTPUT)
 
 verbose:
 	$(AS) $(ASFLAGS) $(verbose) -o $(OUTPUT) $(SOURCE)
@@ -20,6 +20,7 @@ symbols:
 
 vsym:
 	$(AS) $(ASFLAGS) $(verbose) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
+	sym2nbm $(subst .z64,-sym.txt,$(OUTPUT)) -o $(subst .z64,.nbm,$(OUTPUT))
 
 .PHONY : clean
 clean:
