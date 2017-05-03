@@ -22,6 +22,12 @@ vsym:
 	$(AS) $(ASFLAGS) $(verbose) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
 	sym2nbm $(subst .z64,-sym.txt,$(OUTPUT)) -o $(subst .z64,.nbm,$(OUTPUT))
 
+# Moving built roms to the everdrive
+load: $(OUTPUT)
+		loader64 $(OUTPUT)
+
+$(OUTPUT): build
+
 .PHONY : clean
 clean:
-	-rm $(OUTPUT) $(subst .z64,-sym.txt,$(OUTPUT))
+	-rm $(OUTPUT) $(subst .z64,-sym.txt,$(OUTPUT)) $(subst .z64,.nbm,$(OUTPUT))
