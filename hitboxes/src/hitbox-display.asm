@@ -86,12 +86,14 @@ scope render: {
   model:
   // if not just the model, check for each component
           andi  at, t0, def.hbFlags.hideModel   // check if model should be hidden
-          bnez  at, collision
+  // If model is hidden, do not draw collision!
+          bnez  at, hurtbox
           nop
           j     hook.render_model
           nop
 
   collision:
+  // Collision can only be drawn when there is a normal base model...
       lbuAddr(t0, data.hitboxFlags, 0)
           andi  at, t0, def.hbFlags.collision
           beqz  at, hurtbox
