@@ -44,7 +44,7 @@ scope hook {
 // just replace the branch with a jump to custom code
   origin 0x6EB04
   base   0x800F3304
-          j     render.hurtbox
+          j     render.draw_boxes
 
 //------------------------------------------------------------------------------
 
@@ -75,19 +75,14 @@ align(4)
 // the order the game renders.
 // This is the best chance to keep a semi-okay register setup...
 scope render: {
+  constant moorState(0x80046A58)
   // on ROM routine that renders a character's hurtbox
   constant renderHurtbox(0x800F2584)
 
-
-  // Branch between an explicit model only path and an individual components path
-      lbuAddr(t0, data.hitboxFlags, 0)
-          //beqzl t0, only_model
-          //nop
   model:
-  // if not just the model, check for each component
+      lbuAddr(t0, data.hitboxFlags, 0)
           andi  at, t0, def.hbFlags.hideModel   // check if model should be hidden
-  // If model is hidden, do not draw collision!
-          bnez  at, hurtbox
+          bnez  at, draw_boxes        // If model is hidden, do not draw collision!
           nop
           j     hook.render_model
           nop
@@ -96,9 +91,23 @@ scope render: {
   // Collision can only be drawn when there is a normal base model...
       lbuAddr(t0, data.hitboxFlags, 0)
           andi  at, t0, def.hbFlags.collision
-          beqz  at, hurtbox
+          beqz  at, draw_boxes
           nop
           j     hook.render_collision
+          nop
+
+  draw_boxes:
+  // To prevent console crashes (for eg 1P Mode or 4 players in CSS)
+  //   don't render hit/hurtboxes when there is already a model being rendered
+  //  if ( hbFlags.hideModel || Mooring == 0x3EA ) { render }
+      lbuAddr(t0, data.hitboxFlags, 0)
+          andi  at, t0, def.hbFlags.hideModel
+          bnez  at, hurtbox           // TRUE, no model, so continue
+          // nop (Branch Delay)
+      lwAddr(t0, moorState, 0)
+          lw    t0, 0x0000(t0)
+          ori   at, r0, 0x03EA        // seems to be the value in battle...
+          bne   t0, at, epilogue      // != 3EA, model and not in battle, don't draw boxes
           nop
 
   hurtbox:

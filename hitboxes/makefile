@@ -23,10 +23,8 @@ vsym:
 	sym2nbm $(subst .z64,-sym.txt,$(OUTPUT)) -o $(subst .z64,.nbm,$(OUTPUT))
 
 # Moving built roms to the everdrive
-loadED: $(OUTPUT)
+loadED: build
 		loader64 $(OUTPUT)
-
-$(OUTPUT): build
 
 .PHONY : clean
 clean:
