@@ -15,7 +15,7 @@ build:
 verbose:
 	$(AS) $(ASFLAGS) $(verbose) -o $(OUTPUT) $(SOURCE)
 
-symbols:
+sym:
 	$(AS) $(ASFLAGS) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
 
 vsym:
