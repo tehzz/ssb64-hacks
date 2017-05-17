@@ -19,45 +19,27 @@ dl 0x7F0C90
 // set initial ROM base for free space
 origin 0x00F5F500
 
-// code within this scope requires something to be DMA'd by the custom loader
-scope DMA {
-  //---Code DMA'd into RAM on game boot----------
-  scope boot {
-    // set RAM base for DMA'd code
-    // and save ROM, RAM, and SIZE for DMA Loader
-    base 0x80400000
 
-    constant ROM(origin())
-    constant RAM(pc())
-    variable SIZE(0)
+//---Code DMA'd into RAM on game boot----------
+scope boot {
+  // set RAM base for DMA'd code
+  // and save ROM, RAM, and SIZE for DMA Loader
+  base 0x80400000
 
-    align(4)
-    //--Defs--------------------------------------
-    include "src/def/hb-defs.bass"
-    // u8 def.hbFlags
+  constant ROM(origin())
+  constant RAM(pc())
+  variable SIZE(0)
 
-    //--.data / static variables------------------
-    include "src/data/hb-global-vars.asm"
-    // u32 *def.hbFlags -> data.hitboxFlags
+  align(4)
+  include "hitbox.asm"
 
-    //--.text / Code------------------------------
-    include "src/hitbox-display.asm"            // for character model hit-/hurt-boxes
-    include "src/own-projectiles-hb.asm"        // full replacement for on ROM routine (no DMA'd code)
-    include "src/dpad-handle.asm"               // toggle models in game with d-pad
+  // update SIZE variable
+  variable SIZE( origin()-ROM )
 
-    include "src/items/link-bomb-hb.asm"        // full replacement for on ROM routine (no DMA'd code)
-    include "src/items/thrown-item-hb.asm"      // full replacement for on ROM routine (no DMA'd code)
-    include "src/items/beamsword-hb.asm"        // full replacement for on ROM routine (no DMA'd code)
-    include "src/items/bob-omb-hb.asm"          // full replacement for on ROM routine (no DMA'd code)
-
-    // update SIZE variable
-    variable SIZE( origin()-ROM )
-
-    // Verbose Print info [-d v on cli]
-    if {defined v} {
-      print "\nBoot DMA Parameters:\n"
-      printDMAInfo(ROM, RAM, SIZE)
-    }
+  // Verbose Print info [-d v on cli]
+  if {defined v} {
+    print "\nBoot DMA Parameters:\n"
+    printDMAInfo(ROM, RAM, SIZE)
   }
 }
 
@@ -79,9 +61,9 @@ scope loader {
           jal   fn.ssb.managedDMA   // target of hooked jal above
           nop
   // DMA custom code on boot
-          li    a0, DMA.boot.ROM
-          la    a1, DMA.boot.RAM
-          li    a2, DMA.boot.SIZE
+          li    a0, boot.ROM
+          la    a1, boot.RAM
+          li    a2, boot.SIZE
           jal   fn.ssb.managedDMA
           nop
   // epilogue
