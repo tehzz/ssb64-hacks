@@ -34,8 +34,10 @@ scope z_cancel_routine: {
           sw    v0, 0x10 (sp) // Save v0
           sw    v1, 0x14 (sp) // Save v1
           sw    a0, 0x18 (sp) // Save a0
+  // get pointer to current global player struct
           lui   t0, 0x800A
           lw    t0, 0x50E8 (t0) // Pointer to pointers
+  // get pointer to player who needs to z-cancel
   loop: {
           lw    t1, 0x78 (t0) // Pointer
           beq   t1, a0, cpu_check

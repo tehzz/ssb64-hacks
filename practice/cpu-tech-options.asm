@@ -22,7 +22,7 @@ pushvar pc
 origin  0x0BB3C0
 base    0x80140980
 scope tech_hook1: {
-  constant hook_end(0x801409A4)
+  constant hook_end(0x801409A8)
           jal tech_routine
           nop
           j   hook_end
@@ -34,7 +34,7 @@ scope tech_hook1: {
 origin  0x0BE034
 base    0x801435F4
 scope tech_hook2: {
-  constant hook_end(0x80143620)
+  constant hook_end(0x8014361C)
           jal tech_routine
           nop
           j   hook_end
@@ -61,13 +61,15 @@ scope tech_routine: {
   prologue:
           subiu sp, sp, {StackSize}
           sw    ra, 0x14 (sp)
+  // Load pointer to active global player struct
           lui   t0, 0x800A
           lw    t0, 0x50E8 (t0) // Pointer to pointers
-  state_check_loop: {
+  // get which player is a tech situation
+  find_active_player_loop: {
           lw    t1, 0x78 (t0) // Pointer
           beq   t1, s0, cpu_check
           nop
-          b     state_check_loop
+          b     find_active_player_loop
           addiu t0, 0x74 // Increment pointer
   }
 
