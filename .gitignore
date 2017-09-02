@@ -5,7 +5,7 @@
 *.z64
 
 # Symbol Debug Files
-hitboxes/*.txt
+*-sym.txt
 *.nbm
 
 # Windows image file caches
